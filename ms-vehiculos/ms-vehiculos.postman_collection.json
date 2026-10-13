@@ -1,0 +1,71 @@
+{
+  "info": {
+    "name": "FleetGo · ms-vehiculos",
+    "description": "Catálogo de vehículos (puerto 8081).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Listar vehículos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/vehiculos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "vehiculos"
+          ]
+        },
+        "description": "Esperado: 200 OK con 3 vehículos."
+      }
+    },
+    {
+      "name": "2. Obtener vehículo 1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/vehiculos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "vehiculos",
+            "1"
+          ]
+        },
+        "description": "Esperado: 200 OK con el SEDAN ABC-123."
+      }
+    },
+    {
+      "name": "3. Vehículo inexistente (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/api/vehiculos/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "vehiculos",
+            "9"
+          ]
+        },
+        "description": "Esperado: 404 Not Found."
+      }
+    }
+  ]
+}

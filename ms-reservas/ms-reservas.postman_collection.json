@@ -1,0 +1,267 @@
+{
+  "info": {
+    "name": "FleetGo · ms-reservas",
+    "description": "Reservas (puerto 8082). Requiere ms-vehiculos en ejecución, salvo el escenario 7.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Reserva confirmada (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 1,\n  \"cliente\": \"Ana Torres\",\n  \"dias\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "201 Created · CONFIRMADA · total 360.0"
+      }
+    },
+    {
+      "name": "2. Descuento por 7 días (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 2,\n  \"cliente\": \"Luis Paz\",\n  \"dias\": 7\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "201 Created · CONFIRMADA · total 1260.0 (200 x 7 - 10%)"
+      }
+    },
+    {
+      "name": "3. Datos inválidos (400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 1,\n  \"cliente\": \"Ana Torres\",\n  \"dias\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "400 Bad Request · DATOS INVALIDOS"
+      }
+    },
+    {
+      "name": "4. Vehículo no disponible (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 3,\n  \"cliente\": \"Ana Torres\",\n  \"dias\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "409 Conflict · VEHICULO NO DISPONIBLE"
+      }
+    },
+    {
+      "name": "5. Vehículo ya reservado (409)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 1,\n  \"cliente\": \"Otro cliente\",\n  \"dias\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "Ejecuta primero el escenario 1. Esperado: 409 Conflict · YA RESERVADO"
+      }
+    },
+    {
+      "name": "6. Vehículo inexistente (404)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 9,\n  \"cliente\": \"Ana Torres\",\n  \"dias\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "404 Not Found · VEHICULO NO EXISTE"
+      }
+    },
+    {
+      "name": "7. Catálogo detenido (503)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehiculoId\": 2,\n  \"cliente\": \"Ana Torres\",\n  \"dias\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "Detén ms-vehiculos antes de enviar. Esperado: 503 Service Unavailable · CATALOGO NO DISPONIBLE"
+      }
+    },
+    {
+      "name": "8. Listar reservas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "description": "Esperado: 200 OK con las reservas creadas."
+      }
+    }
+  ]
+}
